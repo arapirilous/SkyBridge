@@ -3,24 +3,24 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "skybridge"
-primary_region = "lhr"
+app = "skybridge-ivory"
+primary_region = "bom"
 
 [http_service]
   internal_port = 8080
   force_https = true
-  auto_stop_machines = true
+  auto_stop_machines = "stop"
   auto_start_machines = true
   min_machines_running = 0
 
 [env]
   SKYBRIDGE_BASEURL = "skybridge.fly.dev"
   SKYBRIDGE_SHOW_INDEX = true
-  FLY_SWAP = true
+  SKYBRIDGE_AUTH_PASSWORD = "p4mc-w5cb-oyzy-p5td"  # Add a strong password here
 
-[mounts]
-  source="skybridge_data"
-  destination="/app/database"
+[[mounts]]
+  source = "skybridge_data"
+  destination = "/app/database"
 
 [[http_service.checks]]
   grace_period = "30s"
@@ -33,3 +33,5 @@ primary_region = "lhr"
   type = "requests"
   hard_limit = 999999
   soft_limit = 9999
+
+swap_size_mb = 512
